@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\StudentProfile;
 use App\Models\User;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -15,6 +16,7 @@ class StudentProfileController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
 
@@ -23,12 +25,25 @@ class StudentProfileController extends Controller
     {
         $fields = $request->validate([
             'id_number' => 'required',
-            'password' => 'required|min:6|max:25|confirmed',
+            'password' => 'required|min:6|max:25',
         ]);
 
+        $profileFields = $request->validate([
+            'name' => 'nullable',
+            'email' => 'nullable',
+            'contact_number' => 'nullable',
 
+            'sgpa' => 'nullable',
+            'cgpa' => 'nullable',
 
-        $profile = StudentProfile::create();
+            'credit_earned' => 'nullable',
+            'course_completed' => 'nullable',
+
+            'blood_group' => 'nullable',
+            'batch' => 'nullable',
+        ]);
+
+        $profile = StudentProfile::create($profileFields);
 
 
         $user = new User([
@@ -45,7 +60,10 @@ class StudentProfileController extends Controller
             'user' => $user,
             'token' => $token
         ], 201);
+
+
     }
+
 
 
 
@@ -58,7 +76,7 @@ class StudentProfileController extends Controller
 
         $user = User::query()->where('id_number', $fields['id_number'])->first();
 
-        if ($user && Hash::check($fields['password'], $user->password) && $user->profile_type === User::PROFILE_STUDENT) {
+        if ($user && Hash::check($fields['password'], $user->password) ) {
 
             $token = $user->createToken('auth')->plainTextToken;
             return response()->json([
@@ -75,6 +93,18 @@ class StudentProfileController extends Controller
         }
     }
 
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getProfile()
+    {
+        //
+
+        return 'something';
+    }
 
     /**
      * Show the form for creating a new resource.

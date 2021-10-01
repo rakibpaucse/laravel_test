@@ -18,15 +18,15 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::get('/try', function () { return 'index';} );
+
 
 Route::prefix('student')->name('student.')->group(function () {
 
+    Route::get('/try', function () { return 'index';} );
 
-
-    Route::post('/registration', ['App\Http\Controllers\StudentProfileController', 'registration'])->name('registration');
-    Route::post('/login', ['App\Http\Controllers\StudentProfileController', 'login'])->name('login');
-    Route::get('/getProfile', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum')->name('getProfile');
+    Route::post('/registration', ['App\Http\Controllers\StudentProfileController', 'registration']);
+    Route::post('/login', ['App\Http\Controllers\StudentProfileController', 'login']);
+    Route::get('/getProfile', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
 
 });
 

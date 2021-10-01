@@ -15,7 +15,7 @@ class CreateStudentProfilesTable extends Migration
     {
         Schema::create('student_profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('student_id',13)->unique();
+//            $table->string('id_number',13)->unique();
             $table->string('name' , 60)->nullable();
             $table->string('email' , 60)->nullable();
             $table->string('contact_number', 20)->nullable();

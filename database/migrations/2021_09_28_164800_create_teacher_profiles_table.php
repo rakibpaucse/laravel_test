@@ -15,7 +15,7 @@ class CreateTeacherProfilesTable extends Migration
     {
         Schema::create('teacher_profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('teacher_id',13)->unique();
+            $table->string('id_number',13)->unique();
             $table->string('name' , 60)->nullable();
             $table->string('gender', 20)->nullable();
             $table->string('age', 20)->nullable();
