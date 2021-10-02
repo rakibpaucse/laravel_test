@@ -76,7 +76,7 @@ class StudentProfileController extends Controller
 
         $user = User::query()->where('id_number', $fields['id_number'])->first();
 
-        if ($user && Hash::check($fields['password'], $user->password) ) {
+        if ($user && Hash::check($fields['password'], $user->password) && $user->profile_type === User::PROFILE_STUDENT) {
 
             $token = $user->createToken('auth')->plainTextToken;
             return response()->json([

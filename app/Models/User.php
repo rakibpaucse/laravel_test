@@ -60,4 +60,14 @@ class User extends Authenticatable
 //        return $this->hasOne(SellerBankInformation::class);
 //    }
 
+    public function teacherCourses()
+    {
+        return $this->hasMany(Course::class, 'teacher_id', 'id');
+    }
+
+    public function studentCourses()
+    {
+        return $this->belongsToMany(Course::class, 'course_student', 'course_id', 'student_id');
+    }
+
 }
