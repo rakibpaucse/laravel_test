@@ -18,6 +18,27 @@ class Course extends Model
 
     public function teacher()
     {
-        return $this->belongsTo(User::class, 'id', 'teacher_id');
+        return $this->belongsTo(User::class,  'teacher_id', 'id');
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    public function exams()
+    {
+        return $this->hasMany(Exam::class);
+    }
+
+    public function lectures()
+    {
+        return $this->hasMany(Lecture::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
 }

@@ -60,6 +60,7 @@ class User extends Authenticatable
 //        return $this->hasOne(SellerBankInformation::class);
 //    }
 
+//courses
     public function teacherCourses()
     {
         return $this->hasMany(Course::class, 'teacher_id', 'id');
@@ -67,7 +68,19 @@ class User extends Authenticatable
 
     public function studentCourses()
     {
-        return $this->belongsToMany(Course::class, 'course_student', 'course_id', 'student_id');
+        return $this->belongsToMany(Course::class, 'course_student', 'student_id', 'course_id');
     }
 
+
+    /* Notifications*/
+
+    public function teacherNotifications()
+    {
+        return $this->hasManyThrough(Notification::class, Course::class, 'course_id', 'teacher_id');
+    }
+
+    public function studentNotifications()
+    {
+        return $this->belongsToMany(Course::class, 'course_student', 'course_id', 'student_id');
+    }
 }

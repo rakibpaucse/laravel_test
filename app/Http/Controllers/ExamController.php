@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assignment;
+use App\Models\Course;
+use App\Models\Exam;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ExamController extends Controller
 {
@@ -12,11 +17,12 @@ class ExamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getExams()
+    public function getExams(Course $course)
     {
         //
 
-        return 'something';
+        return $course->exams;
+
     }
 
 
@@ -25,10 +31,9 @@ class ExamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createExams()
+    public function createExams( Request $request , Course $course)
     {
         //
-
-        return 'something';
+        return $course->exams()->save(new Exam($request->all()));
     }
 }

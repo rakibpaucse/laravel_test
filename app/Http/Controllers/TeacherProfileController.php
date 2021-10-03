@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use http\Env\Response;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
@@ -87,11 +88,25 @@ class TeacherProfileController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Http\Response
      */
-    public function create()
+
+    public function getDashboardData()
     {
         //
+        return Auth::user()->load(['profile', 'teacherCourses']);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Http\Response
+     */
+
+    public function getProfile()
+    {
+        //
+        return Auth::user()->load(['profile']);
     }
 
     /**
@@ -100,10 +115,14 @@ class TeacherProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+
+
+    public function getRoutine()
     {
-        //
+
     }
+
+
 
     /**
      * Display the specified resource.

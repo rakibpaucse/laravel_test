@@ -29,30 +29,30 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::get('/getProfile', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
 
 
-    Route::get('/dashboard', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
-    Route::get('/routine', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
+    Route::get('/dashboard', ['App\Http\Controllers\StudentProfileController', 'getDashboardData'])->middleware('auth:sanctum');
+//    Route::get('/routine', ['App\Http\Controllers\StudentProfileController', 'getRoutine'])->middleware('auth:sanctum');
 
-    Route::get('/events', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
+    Route::get('/events', ['App\Http\Controllers\EventController', 'getEvents'])->middleware('auth:sanctum');
     Route::get('/profile', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
 
-    Route::get('/notification', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
+    Route::get('/notification', ['App\Http\Controllers\NotificationController', 'getNotifications'])->middleware('auth:sanctum');
 
 
     // submenu
 
-    Route::get('/course/{course}/posts', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
+    Route::get('/course/{course}/post', ['App\Http\Controllers\PostController', 'getPosts'])->middleware('auth:sanctum');
+    Route::post('/course/{course}/post', ['App\Http\Controllers\PostController', 'createPost'])->middleware('auth:sanctum');
 
-    Route::get('/posts/{post}/comment', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
+    Route::get('/post/{post}/comment', ['App\Http\Controllers\PostController', 'getComments'])->middleware('auth:sanctum');
+    Route::post('/post/{post}/comment', ['App\Http\Controllers\PostController', 'createComment'])->middleware('auth:sanctum');
 
 
-    Route::get('/assignments', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
+    Route::get('/assignments', ['App\Http\Controllers\AssignmentController', 'getAssignments'])->middleware('auth:sanctum');
 
-    Route::get('/exam', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
-    Route::get('/lecture', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
+    Route::get('/course/{course}/exam', ['App\Http\Controllers\ExamController', 'getExams'])->middleware('auth:sanctum');
+    Route::get('/course/{course}/lecture', ['App\Http\Controllers\LectureController', 'getLectures'])->middleware('auth:sanctum');
 
-    Route::get('/gallery', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
-    Route::get('/lecture', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
-
+    Route::get('/gallery', ['App\Http\Controllers\GalleryController', 'getGallery'])->middleware('auth:sanctum');
 
 });
 
@@ -65,30 +65,38 @@ Route::prefix('teacher')->name('teacher.')->group(function () {
     Route::post('/login', ['App\Http\Controllers\TeacherProfileController', 'login']);
     Route::get('/getProfile', ['App\Http\Controllers\TeacherProfileController', 'getProfile'])->middleware('auth:sanctum');
 
-    Route::get('/dashboard', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
-    Route::get('/schedule', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
+    Route::get('/dashboard', ['App\Http\Controllers\TeacherProfileController', 'getDashboardData'])->middleware('auth:sanctum');
 
-    Route::get('/events', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
-    Route::get('/profile', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
+    Route::get('/course', ['App\Http\Controllers\CourseController', 'getTeacherCourses'])->middleware('auth:sanctum');
+//    Route::get('/schedule', ['App\Http\Controllers\TeacherProfileController', 'getRoutine'])->middleware('auth:sanctum');
+
+    Route::get('/events', ['App\Http\Controllers\EventController', 'getEvents'])->middleware('auth:sanctum');
+    Route::get('/profile', ['App\Http\Controllers\TeacherProfileController', 'getProfile'])->middleware('auth:sanctum');
 
     // submenu
 
-    Route::get('/course/{course}/posts', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
-    Route::post('/course/{course}/posts', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
+    Route::get('/course/{course}/post', ['App\Http\Controllers\PostController', 'getPosts'])->middleware('auth:sanctum');
+    Route::post('/course/{course}/post', ['App\Http\Controllers\PostController', 'createPost'])->middleware('auth:sanctum');
 
-    Route::post('/course/{course}/posts', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
+    Route::get('/post/{post}/comment', ['App\Http\Controllers\PostController', 'getComments'])->middleware('auth:sanctum');
+    Route::post('/post/{post}/comment', ['App\Http\Controllers\PostController', 'createComment'])->middleware('auth:sanctum');
 
-    Route::post('/assignments', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
+    Route::post('/assignments', ['App\Http\Controllers\AssignmentController', 'getProfile'])->middleware('auth:sanctum');
 
-    Route::post('/exam', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
-    Route::post('/lecture', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
+    Route::post('/course/{course}/exam', ['App\Http\Controllers\ExamController', 'createExams'])->middleware('auth:sanctum');
+    Route::get('/course/{course}/exam', ['App\Http\Controllers\ExamController', 'getExams'])->middleware('auth:sanctum');
 
-    Route::get('/gallery', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
-    Route::get('/lecture', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
+    Route::post('/course/{course}/lecture', ['App\Http\Controllers\LectureController', 'createLectures'])->middleware('auth:sanctum');
+    Route::get('/course/{course}/lecture', ['App\Http\Controllers\LectureController', 'getLectures'])->middleware('auth:sanctum');
+
+    Route::get('/gallery', ['App\Http\Controllers\GalleryController', 'getGallery'])->middleware('auth:sanctum');
+
+    Route::get('/course/{course}/notification', ['App\Http\Controllers\NotificationController', 'getNotifications'])->middleware('auth:sanctum');
+    Route::post('/course/{course}/notification', ['App\Http\Controllers\NotificationController', 'createNotifications'])->middleware('auth:sanctum');
 
 
 });
 
 
-Route::post('/course/{id}', ['App\Http\Controllers\TeacherProfileController', 'registration']);
+Route::get('/course/{course}', ['App\Http\Controllers\CourseController', 'getCourse']);
 
