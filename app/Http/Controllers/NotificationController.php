@@ -16,10 +16,10 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Http\Response
      */
-    public function getNotifications( Course $course)
+    public function getNotifications()
     {
 
-        return $course->notifications;
+        return auth()->user()->studentCourses()->with('notifications')->get();
 
     }
 
