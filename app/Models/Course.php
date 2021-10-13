@@ -40,5 +40,10 @@ class Course extends Model
     {
         return $this->hasMany(Post::class);
     }
+    
+        public function assignments()
+    {
+        return $this->hasMany(Assignment::class);
+    }
 
 }

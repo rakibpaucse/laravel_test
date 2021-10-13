@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Plank\Mediable\Facades\MediaUploader;
 
 class StudentProfileController extends Controller
 {
@@ -127,6 +128,36 @@ class StudentProfileController extends Controller
     public function getRoutine()
     {
 
+    }
+
+
+
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|file'
+        ]);
+
+
+        $media = MediaUploader::fromSource($request->file('image'))
+            ->toDestination('public', 'uploads')
+            ->upload();
+
+        if ($media) {
+            $student = auth()->user()->profile;
+
+            $student->attachMedia($media, 'profilePic');
+
+            return response()->json([
+                'message' => 'Image Upload successful',
+                'image_url' => $media->getUrl(),
+                'image_id' => $media->id
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'File upload failed !'
+            ], 422);
+        }
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assignment;
+use App\Models\Course;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,19 +18,21 @@ class AssignmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getAssignments()
+    public function getAssignments(Course $course)
     {
         //
-        $user_type = Auth::user()->profile_type;
-        $course_ids = [];
+//        $user_type = Auth::user()->profile_type;
+//        $course_ids = [];
+//
+//        if ($user_type == User::PROFILE_STUDENT)
+//            $course_ids = Auth::user()->studentCourses->pluck('id');
+//
+//        if ($user_type == User::PROFILE_TEACHER)
+//            $course_ids = Auth::user()->teacherCourses->pluck('id');
+//
+//        return Assignment::query()->with(['course'])->whereIn('course_id', $course_ids)->get();
 
-        if ($user_type == User::PROFILE_STUDENT)
-            $course_ids = Auth::user()->studentCourses->pluck('id');
-
-        if ($user_type == User::PROFILE_TEACHER)
-            $course_ids = Auth::user()->teacherCourses->pluck('id');
-
-        return Assignment::query()->with(['course'])->whereIn('course_id', $course_ids)->get();
+        return $course->assignments()->get();
     }
 
 
@@ -38,11 +41,16 @@ class AssignmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createAssignments()
+    public function createAssignments(Request $request ,  Course $course)
     {
         //
+//        $user_type = Auth::user()->profile_type;
+//        if ($user_type == User::PROFILE_TEACHER)
+//            $course_ids = Auth::user()->teacherCourses->pluck('id');
+//
+//        return Assignment::query()->with(['course'])->whereIn('course_id', $course_ids)->get();
 
-        return 'something';
+        return $course->assignments()->save(new Assignment($request->all()));
     }
 
 

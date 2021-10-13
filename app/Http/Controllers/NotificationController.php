@@ -19,7 +19,15 @@ class NotificationController extends Controller
     public function getNotifications( Course $course)
     {
 
-        return $course->notifications;
+         $user_type = Auth::user()->profile_type;
+        $course_ids = [];
+
+        if ($user_type == User::PROFILE_STUDENT)
+            return auth()->user()->studentCourses()->with('notifications')->get();
+
+        if ($user_type == User::PROFILE_TEACHER)
+            return $course->notifications()->get();
+
 
     }
 

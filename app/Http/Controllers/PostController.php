@@ -14,7 +14,7 @@ class PostController extends Controller
 
     public function getPosts(Course $course)
     {
-        return $course->posts()->with('comments')->get();
+        return $course->posts()->with(['comments', 'user'])->get();
     }
 
 

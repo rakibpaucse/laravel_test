@@ -36,6 +36,8 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::get('/profile', ['App\Http\Controllers\StudentProfileController', 'getProfile'])->middleware('auth:sanctum');
 
     Route::get('/notification', ['App\Http\Controllers\NotificationController', 'getNotifications'])->middleware('auth:sanctum');
+//    upoload Image
+    Route::post('/uploadImage', ['App\Http\Controllers\StudentProfileController', 'uploadImage'])->middleware('auth:sanctum');
 
 
     // submenu
@@ -47,7 +49,7 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::post('/post/{post}/comment', ['App\Http\Controllers\PostController', 'createComment'])->middleware('auth:sanctum');
 
 
-    Route::get('/assignments', ['App\Http\Controllers\AssignmentController', 'getAssignments'])->middleware('auth:sanctum');
+    Route::get('/course/{course}/assignments', ['App\Http\Controllers\AssignmentController', 'getAssignments'])->middleware('auth:sanctum');
 
     Route::get('/course/{course}/exam', ['App\Http\Controllers\ExamController', 'getExams'])->middleware('auth:sanctum');
     Route::get('/course/{course}/lecture', ['App\Http\Controllers\LectureController', 'getLectures'])->middleware('auth:sanctum');
@@ -73,6 +75,10 @@ Route::prefix('teacher')->name('teacher.')->group(function () {
     Route::get('/events', ['App\Http\Controllers\EventController', 'getEvents'])->middleware('auth:sanctum');
     Route::get('/profile', ['App\Http\Controllers\TeacherProfileController', 'getProfile'])->middleware('auth:sanctum');
 
+    //    upoload Image
+    Route::post('/uploadImage', ['App\Http\Controllers\TeacherProfileController', 'uploadImage'])->middleware('auth:sanctum');
+
+
     // submenu
 
     Route::get('/course/{course}/post', ['App\Http\Controllers\PostController', 'getPosts'])->middleware('auth:sanctum');
@@ -81,7 +87,9 @@ Route::prefix('teacher')->name('teacher.')->group(function () {
     Route::get('/post/{post}/comment', ['App\Http\Controllers\PostController', 'getComments'])->middleware('auth:sanctum');
     Route::post('/post/{post}/comment', ['App\Http\Controllers\PostController', 'createComment'])->middleware('auth:sanctum');
 
-    Route::post('/assignments', ['App\Http\Controllers\AssignmentController', 'getProfile'])->middleware('auth:sanctum');
+    Route::get('/course/{course}/assignments', ['App\Http\Controllers\AssignmentController', 'getAssignments'])->middleware('auth:sanctum');
+    Route::post('/course/{course}/assignments', ['App\Http\Controllers\AssignmentController', 'createAssignments'])->middleware('auth:sanctum');
+
 
     Route::post('/course/{course}/exam', ['App\Http\Controllers\ExamController', 'createExams'])->middleware('auth:sanctum');
     Route::get('/course/{course}/exam', ['App\Http\Controllers\ExamController', 'getExams'])->middleware('auth:sanctum');
@@ -99,4 +107,5 @@ Route::prefix('teacher')->name('teacher.')->group(function () {
 
 
 Route::get('/course/{course}', ['App\Http\Controllers\CourseController', 'getCourse']);
+Route::get('/getUserProfile/{user}', ['App\Http\Controllers\CourseController', 'getUserProfile']);
 

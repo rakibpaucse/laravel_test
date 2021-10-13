@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Plank\Mediable\MediableServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -228,6 +229,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'MediaUploader' => Plank\Mediable\MediaUploaderFacade::class,
 
     ],
 
