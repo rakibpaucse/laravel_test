@@ -20,6 +20,6 @@ class StudentProfile extends Model
 
     public function getProfilePictureAttribute()
     {
-        return $this->firstMedia('profilePic') ? $this->firstMedia('profilePic')->getUrl() : null;
+        return $this->lastMedia('profilePic') ? $this->lastMedia('profilePic')->getUrl() : null;
     }
 }

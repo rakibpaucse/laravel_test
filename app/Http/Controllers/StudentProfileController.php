@@ -166,9 +166,32 @@ class StudentProfileController extends Controller
      * @param  \App\Models\StudentProfile  $studentProfile
      * @return \Illuminate\Http\Response
      */
-    public function show(StudentProfile $studentProfile)
+    public function uploadFile(Request $request)
     {
-        //
+        $request->validate([
+            'file' => 'required|file'
+        ]);
+
+
+        $media = MediaUploader::fromSource($request->file('file'))
+            ->toDestination('public', 'uploads')
+            ->upload();
+
+        if ($media) {
+//            $student = auth()->user()->profile;
+//
+//            $student->attachMedia($media, 'profilePic');
+
+            return response()->json([
+                'message' => 'File Upload successful',
+                'file_url' => $media->getUrl(),
+                'file_id' => $media->id
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'File upload failed !'
+            ], 422);
+        }
     }
 
     /**

@@ -39,6 +39,9 @@ Route::prefix('student')->name('student.')->group(function () {
 //    upoload Image
     Route::post('/uploadImage', ['App\Http\Controllers\StudentProfileController', 'uploadImage'])->middleware('auth:sanctum');
 
+//    upload File
+    Route::post('/uploadFile', ['App\Http\Controllers\StudentProfileController', 'uploadFile'])->middleware('auth:sanctum');
+
 
     // submenu
 
@@ -77,6 +80,9 @@ Route::prefix('teacher')->name('teacher.')->group(function () {
 
     //    upoload Image
     Route::post('/uploadImage', ['App\Http\Controllers\TeacherProfileController', 'uploadImage'])->middleware('auth:sanctum');
+
+    //    upoload File
+    Route::post('/uploadFile', ['App\Http\Controllers\TeacherProfileController', 'uploadFile'])->middleware('auth:sanctum');
 
 
     // submenu

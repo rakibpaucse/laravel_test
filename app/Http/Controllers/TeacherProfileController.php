@@ -162,10 +162,34 @@ class TeacherProfileController extends Controller
      * @param  \App\Models\TeacherProfile  $teacherProfile
      * @return \Illuminate\Http\Response
      */
-    public function show(TeacherProfile $teacherProfile)
+    public function uploadFile(Request $request)
     {
-        //
+        $request->validate([
+            'file' => 'required|file'
+        ]);
+
+
+        $media = MediaUploader::fromSource($request->file('file'))
+            ->toDestination('public', 'uploads')
+            ->upload();
+
+        if ($media) {
+//            $student = auth()->user()->profile;
+//
+//            $student->attachMedia($media, 'profilePic');
+
+            return response()->json([
+                'message' => 'File Upload successful',
+                'file_url' => $media->getUrl(),
+                'file_id' => $media->id
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'File upload failed !'
+            ], 422);
+        }
     }
+
 
     /**
      * Show the form for editing the specified resource.
